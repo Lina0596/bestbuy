@@ -57,7 +57,7 @@ class Product:
             self.quantity -= quantity
             if self.quantity >= 0:
                 total_price = float(self.price * quantity)
-                return f"Total Price: {total_price}"
+                return total_price
             elif self.quantity < 0:
                 self.quantity += quantity
                 raise ValueError(f"The maximum amount of products is {self.quantity}")
