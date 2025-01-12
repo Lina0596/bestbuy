@@ -3,6 +3,7 @@ import products
 
 class Store:
 
+
     def __init__(self, product_list):
         self.products = product_list
 
@@ -16,7 +17,7 @@ class Store:
 
 
     def get_total_quantity(self):
-        return f"There are {len(self.products)} items in the store"
+        return f"There are {len(self.products)} items in the store."
 
 
     def get_all_products(self):
@@ -30,7 +31,6 @@ class Store:
     def order(self, shopping_list):
         price = 0
         for i in range(len(shopping_list)):
-            products.Product.buy(shopping_list[i][0], shopping_list[i][1])
             price += products.Product.buy(shopping_list[i][0], shopping_list[i][1])
         return price
 

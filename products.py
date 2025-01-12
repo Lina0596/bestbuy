@@ -1,5 +1,6 @@
 class Product:
 
+
     def __init__(self, name, price, quantity):
         try:
             if name == "":
@@ -49,18 +50,17 @@ class Product:
 
 
     def show(self):
-        print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
+        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
 
     def buy(self, quantity):
         try:
-            self.quantity -= quantity
-            if self.quantity >= 0:
+            if (self.quantity - quantity) >= 0:
+                self.quantity -= quantity
                 total_price = float(self.price * quantity)
                 return total_price
-            elif self.quantity < 0:
-                self.quantity += quantity
-                raise ValueError(f"The maximum amount of products is {self.quantity}")
+            elif (self.quantity - quantity) < 0:
+                raise ValueError(f"The maximum amount of this product is {self.quantity}!")
         except ValueError as e:
             print(e)
 
