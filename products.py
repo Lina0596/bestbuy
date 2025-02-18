@@ -2,67 +2,84 @@ class Product:
 
 
     def __init__(self, name, price, quantity):
-        try:
-            if name == "":
-                raise ValueError("The name is empty.")
-            else:
-                self.name = name
-            if price < 0:
-                raise ValueError("The price is negative.")
-            else:
-                self.price = price
-            if quantity < 0:
-                raise ValueError("The quantity is negative.")
-            else:
-                self.quantity = quantity
-            self.activate()
-        except ValueError as e:
-            print(e)
+        """
+        Creates the instance variables of the Product class (active is set to True).
+        If something is invalid (empty name / negative price or quantity),
+        raises an exception.
+        """
+        if name == "":
+            raise ValueError("The name is empty.")
+        else:
+            self.name = name
+        if price < 0:
+            raise ValueError("The price is negative.")
+        else:
+            self.price = price
+        if quantity < 0:
+            raise ValueError("The quantity is negative.")
+        else:
+            self.quantity = quantity
+        self.active = True
 
 
     def get_quantity(self):
+        """
+        Gets the quantity of the product and returns it.
+        """
         return self.quantity
 
 
     def set_quantity(self, quantity):
+        """
+        Sets the quantity based on the given quantity parameter.
+        If quantity reaches 0, deactivates the product
+        """
         self.quantity += quantity
-        if self.quantity <= 0:
+        if self.quantity == 0:
             self.deactivate()
-        else:
-            self.activate()
 
 
     def is_active(self):
-        if self.quantity > 0:
-            return self.activate()
-        else:
-            return self.deactivate()
+        """
+        Checks if a product is active or not.
+        Returns True if the product is active, otherwise False.
+        """
+        return self.active
 
 
     def activate(self):
-        active = True
-        return active
+        """
+        Activates a product (sets the active status to True).
+        """
+        self.active = True
 
 
     def deactivate(self):
-        active = False
-        return active
+        """
+        Deactivates a product (sets the active status to False).
+        """
+        self.active = False
 
 
     def show(self):
-        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
+        """
+        Returns a string that represents the product.
+        """
+        return f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}"
 
 
     def buy(self, quantity):
-        try:
-            if (self.quantity - quantity) >= 0:
-                self.quantity -= quantity
-                total_price = float(self.price * quantity)
-                return total_price
-            elif (self.quantity - quantity) < 0:
-                raise ValueError(f"The maximum amount of this product is {self.quantity}!")
-        except ValueError as e:
-            print(e)
+        """
+        Updates the quantity and buys the given quantity of the product.
+        Returns the total price of the purchase.
+        Raises exception, if the quantity is larger than what exists.
+        """
+        if (self.quantity - quantity) >= 0:
+            self.set_quantity(-quantity)
+            total_price = float(self.price * quantity)
+            return total_price
+        elif (self.quantity - quantity) < 0:
+            raise ValueError("Error with your order! Quantity larger than what exists.")
 
 
 def main():
